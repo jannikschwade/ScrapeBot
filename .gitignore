@@ -1,0 +1,6 @@
+config.ini
+scrapebot_cron.log
+certs/
+screenshots/
+__pycache__/
+scrapebot/__pycache__/

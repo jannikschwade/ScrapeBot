@@ -1,5 +1,8 @@
 [![Build Status](https://travis-ci.com/MarHai/ScrapeBot.svg?branch=master)](https://travis-ci.com/MarHai/ScrapeBot)
 
+# Jannik Schwade Edit
+This is a varied version of Mario Haim's ScrapeBot.
+
 # ScrapeBot
 ScrapeBot is a tool for so-called "agent-based testing" to automatically visit, modify, and scrape a defined set of webpages regularly. It was built to automate various web-based tasks and keep track of them in a controllable way for academic research, primarily in the realm of computational social science.
 
@@ -13,7 +16,7 @@ This repository allows for actual agent-based testing across a variety of instan
 
 ## 1. Installing the database
 There is actually not much to do here apart from installing a MySQL server somewhere and make it accessible from outside. Yes, this is the part which everybody warns you about on the internet, but hey ```¯\_(ツ)_/¯```. So go ahead, install it, and remember those credentials. Next, proceed with part 2, installing a new instance. Once you specify the database credentials there, it will create the database tables as necessary if they do not exist yet.
- 
+
 ## 2. Installing a new Instance
 Installation varies depending on your operating system. The most common way to use it, though, would be on a *nix server, such as one from Amazon's Web Services (AWS). Hence, this installation tutorial is geared toward that, although ScrapeBot can also run under other operating systems, including Windows.
 
@@ -33,7 +36,7 @@ Installation varies depending on your operating system. The most common way to u
     git clone https://github.com/MarHai/ScrapeBot.git
     cd ScrapeBot/
     ```
-1. If you are using either Chrome or Firefox, [ChromeDriver](http://chromedriver.chromium.org/) or [Geckodriver](https://github.com/mozilla/geckodriver) are also required. Luckily, I've already integrated them into the ScrapeBot. All you need to do is provide it with execution rights. 
+1. If you are using either Chrome or Firefox, [ChromeDriver](http://chromedriver.chromium.org/) or [Geckodriver](https://github.com/mozilla/geckodriver) are also required. Luckily, I've already integrated them into the ScrapeBot. All you need to do is provide it with execution rights.
     ```
     chmod u+x lib/*
     ```
@@ -41,7 +44,7 @@ Installation varies depending on your operating system. The most common way to u
     ```
     pip3 install -r requirements.txt
     ```
-1. That's it, we should be good to go. Hence, let's configure your newly created instance of the ScrapeBot by following the step-by-step wizard. On Linux, it will end by setting up a cronjob that runs every two minutes. On other systems, you need to ensure that yourself. 
+1. That's it, we should be good to go. Hence, let's configure your newly created instance of the ScrapeBot by following the step-by-step wizard. On Linux, it will end by setting up a cronjob that runs every two minutes. On other systems, you need to ensure that yourself.
     ```
     python3 setup.py
     ```
@@ -64,10 +67,10 @@ Instead, you can use Chrome. This is in spite of the fact that the therefore nee
 
 Finally, note that Selenium and the ScrapeBot require RAM, something the Raspberry Pi is rather short of. As a general take, you should only use ScrapeBot on a RasPi in exceptional cases and without too many recipes running.
 
-***tl;dr**:* *Don't do it unless necessary. And if so, use Chrome but do not take screenshots.* 
+***tl;dr**:* *Don't do it unless necessary. And if so, use Chrome but do not take screenshots.*
 
 ## 3. Installing the web frontend
-By following the installation guidelines from above, you have also installed all the prerequisites for the web frontend. Despite these prerequisites, though, no web server is yet in place to serve it. This is only required on one instance, obviously, and it can even run on a separate machine without the instance being run regularly. 
+By following the installation guidelines from above, you have also installed all the prerequisites for the web frontend. Despite these prerequisites, though, no web server is yet in place to serve it. This is only required on one instance, obviously, and it can even run on a separate machine without the instance being run regularly.
 
 The web frontend allows you to overlook instances (see screenshots from the [dashboard](readme_screenshots/dashboard.jpg) and the [instance detail view](readme_screenshots/instance.jpg)), configure recipes (see screenshots from the [recipe detail view](readme_screenshots/recipe.jpg) and the [recipe-step configuration](readme_screenshots/recipe_step.jpg)), export the recipes to replicable `.sbj` files (see a [screenshot of a .sbj file](readme_screenshots/export.jpg)), and check the log files from individual runs (see the [screenshot of a run log](readme_screenshots/run.jpg)).
 
@@ -89,7 +92,7 @@ Here is a short installation guide for the web frontend (again, after (!) you ha
     sudo service nginx reload
     ```
 1. The outgoing web server is in place. Yet, for this to be possible, firewall settings may also need adjustment. That is, on AWS, you may need to add inbound security rules for both HTTP and HTTPS.
-1. Finally, we can configure gunicorn to be handled by supervisor. Again, this relies on absolute paths to your home directory, so if your user is not called "ubuntu" you should double-check these configuration files. 
+1. Finally, we can configure gunicorn to be handled by supervisor. Again, this relies on absolute paths to your home directory, so if your user is not called "ubuntu" you should double-check these configuration files.
     ```    
     sudo cp supervisor.conf /etc/supervisor/conf.d/scrapebot.conf
     sudo supervisorctl reload
@@ -104,7 +107,7 @@ This section holds only four options, all aimed at connecting to the central dat
 - **User** must hold the username to connect to the central database.
 - **Password** holds, well, the according password.
 - **Database** represents the database name. Small side note here: The step-by-step wizard Python script (i.e., ```setup.py```) will generate tables and stuff if (and only if) they do not exist yet.
-- Due to long runtimes for recipes, ScrapeBot sometimes struggles with MySQL server timeouts (at least, if servers close connections rather strictly). To overcome this problem, you may set **Timeout** here to a number of seconds after which the database connection should be automatically renewed. Best practice here, by the way, is to do nothing until you run into problems. If you do, however, check your MySQL server's timeout and set ScrapeBot's Database/Timeout setting to a value slightly below (e.g., -10) this number: 
+- Due to long runtimes for recipes, ScrapeBot sometimes struggles with MySQL server timeouts (at least, if servers close connections rather strictly). To overcome this problem, you may set **Timeout** here to a number of seconds after which the database connection should be automatically renewed. Best practice here, by the way, is to do nothing until you run into problems. If you do, however, check your MySQL server's timeout and set ScrapeBot's Database/Timeout setting to a value slightly below (e.g., -10) this number:
   ```
   SHOW SESSION VARIABLES LIKE 'wait_timeout';
   ```
@@ -124,7 +127,7 @@ Finally, a ```config.ini``` file is always unique for one instance. And as such,
 - **Browser** is the [Selenium](https://www.seleniumhq.org/projects/webdriver/) webdriver to use. See its [documentation on drivers](https://selenium-python.readthedocs.io/installation.html#drivers) to find out more. Whatever driver you choose, though, it needs to be installed correctly.
 - **BrowserBinary** is the path to the binary (if necessary). If your browser is able to run from PATH directly, then this is not necessary.
 - **BrowserUserAgent** overwrites, if set, the default [user-agent string](https://en.wikipedia.org/wiki/User_agent#Use_in_HTTP).
-- **BrowserLanguage** sets the [accept_languages setting](https://www.w3.org/International/questions/qa-lang-priorities). You can use either languages (e.g., "en", "de") or language+region (e.g., "en-us", "en-gb") settings. 
+- **BrowserLanguage** sets the [accept_languages setting](https://www.w3.org/International/questions/qa-lang-priorities). You can use either languages (e.g., "en", "de") or language+region (e.g., "en-us", "en-gb") settings.
 - **BrowserWidth** and **BrowserHeight** define (in pixels) the size of the browser window to emulate. Use 1024 and 768 if unsure.
 - For screenshots to be taken and stored locally, a **ScreenshotDirectory** could be specified. Default is the ```screenshots/``` sub directory. Alternatively, you can upload screenshots to an Amazon S3 bucket. In this case, go ahead and configure *AWSaccess*, *AWSsecret*, and *AWSbucket* under Database, this setting is then ignored.
 
@@ -143,7 +146,7 @@ There is a publication available to read up on agent-based testing, including so
 
 Haim, M. (2020). Agent-based testing: An automated approach toward artificial reactions to human behavior. Journalism Studies, 21(7), 895-911. https://dx.doi.org/10.1080/1461670x.2019.1702892
 
-ScrapeBot uses [Selenium WebDriver](https://www.seleniumhq.org/projects/webdriver/) for its browser emulations. As such, it is capable to run with a broad variety of browsers. 
+ScrapeBot uses [Selenium WebDriver](https://www.seleniumhq.org/projects/webdriver/) for its browser emulations. As such, it is capable to run with a broad variety of browsers.
 
 ## Very brief history
 The ScrapeBot was available for quite some time as a CasperJS-based tool which was controlled through a bash script. The latest (stable) release of that version is available as [v1.1](https://github.com/MarHai/ScrapeBot/tree/v1.1) of this repository.
